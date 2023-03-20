@@ -1,13 +1,32 @@
 import { useState } from 'react'
 
 function App() {
-  const [tasks, setTasks] =
-    useState(['Koodaile', 'Kato formulat', 'Tiskaile'])
-  const [done, setDone] = useState(['Päikkärit', 'Juo kahvi'])
+  const [tasks, setTasks] = useState([])
+  const [completed, setCompleted] = useState([])
+  const [task, setTask] = useState('')
+
+  function addTask(event) {
+    event.preventDefault()
+
+    setTasks(tasks.concat((task)))
+    setTask('')
+  }
 
   return (
     <div>
       <h1>ToDo</h1>
+
+      <form onSubmit={addTask}>
+        <input
+          value={task}
+          name='task'
+          id='task-input'
+          onChange={({ target }) => {
+            setTask(target.value)
+          }}
+        />
+        <button type='submit'>Add</button>
+      </form>
 
       <h2>Tasks</h2>
       <ul>
@@ -23,8 +42,8 @@ function App() {
       <h2>Done</h2>
       <ul>
         {
-          done.map(task => 
-            <li key={done.indexOf(task)}>
+          completed.map(task => 
+            <li key={completed.indexOf(task)}>
               {task}
             </li>
           )
