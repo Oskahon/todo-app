@@ -1,15 +1,35 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 function App() {
-  const [tasks, setTasks] = useState([])
-  const [completed, setCompleted] = useState([])
-  const [task, setTask] = useState('')
+  const [tasks, setTasks] = useState([]);
+  const [completed, setCompleted] = useState([]);
+  const [task, setTask] = useState("");
+  const [id, setId] = useState(0)
 
   function addTask(event) {
-    event.preventDefault()
+    event.preventDefault();
 
-    setTasks(tasks.concat((task)))
-    setTask('')
+    const newTask = {
+      id,
+      text: task
+    }
+
+    setId(id + 1)
+
+    setTasks(tasks.concat(newTask));
+    setTask("");
+  }
+
+  function handleComplete(task) {
+    setCompleted(completed.concat(task))
+    const tempTasks = tasks.filter(x => x.id !== task.id)
+    setTasks(tempTasks)
+  }
+
+  function handleNotCompleted(task) {
+    setTasks(tasks.concat(task))
+    const tempCompleted = completed.filter(x => x.id !== task.id)
+    setCompleted(tempCompleted)
   }
 
   return (
@@ -19,39 +39,46 @@ function App() {
       <form onSubmit={addTask}>
         <input
           value={task}
-          name='task'
-          id='task-input'
+          name="task"
+          id="task-input"
           onChange={({ target }) => {
-            setTask(target.value)
+            setTask(target.value);
           }}
         />
-        <button type='submit'>Add</button>
+        <button type="submit">Add</button>
       </form>
 
       <h2>Tasks</h2>
-      <ul>
-        {
-          tasks.map(task => 
-            <li key={tasks.indexOf(task)}>
-              {task}
-            </li>
+      <div>
+        {tasks.map((task) => { 
+          return (
+            <div key={task.id}>
+              <label>
+              <input type="checkbox" onChange={() =>
+                  handleComplete(task)} />
+              {task.text}
+            </label>
+            </div>
           )
-        }
-      </ul>
+        })}
+      </div>
 
       <h2>Done</h2>
-      <ul>
-        {
-          completed.map(task => 
-            <li key={completed.indexOf(task)}>
-              {task}
-            </li>
+      <div>
+        {completed.map((task) => { 
+          return (
+            <div key={task.id}>
+              <label>
+              <input type="checkbox" onChange={() =>
+                  handleNotCompleted(task)} checked />
+              {task.text}
+            </label>
+            </div>
           )
-        }
-      </ul>
-
+        })}
+      </div>
     </div>
-  )
+  );
 }
 
 export default App;
