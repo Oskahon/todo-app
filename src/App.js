@@ -4,7 +4,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [completed, setCompleted] = useState([]);
   const [task, setTask] = useState("");
-  const [id, setId] = useState(0)
+  const [id, setId] = useState(0);
 
   function addTask(event) {
     event.preventDefault();
@@ -12,24 +12,24 @@ function App() {
     const newTask = {
       id,
       text: task
-    }
+    };
 
-    setId(id + 1)
+    setId(id + 1);
 
     setTasks(tasks.concat(newTask));
     setTask("");
   }
 
   function handleComplete(task) {
-    setCompleted(completed.concat(task))
-    const tempTasks = tasks.filter(x => x.id !== task.id)
-    setTasks(tempTasks)
+    setCompleted(completed.concat(task));
+    const tempTasks = tasks.filter(x => x.id !== task.id);
+    setTasks(tempTasks);
   }
 
   function handleNotCompleted(task) {
-    setTasks(tasks.concat(task))
-    const tempCompleted = completed.filter(x => x.id !== task.id)
-    setCompleted(tempCompleted)
+    setTasks(tasks.concat(task));
+    const tempCompleted = completed.filter(x => x.id !== task.id);
+    setCompleted(tempCompleted);
   }
 
   return (
@@ -50,31 +50,31 @@ function App() {
 
       <h2>Tasks</h2>
       <div>
-        {tasks.map((task) => { 
+        {tasks.map((task) => {
           return (
             <div key={task.id}>
               <label>
-              <input type="checkbox" onChange={() =>
+                <input type="checkbox" onChange={() =>
                   handleComplete(task)} />
-              {task.text}
-            </label>
+                {task.text}
+              </label>
             </div>
-          )
+          );
         })}
       </div>
 
       <h2>Done</h2>
       <div>
-        {completed.map((task) => { 
+        {completed.map((task) => {
           return (
             <div key={task.id}>
               <label>
-              <input type="checkbox" onChange={() =>
+                <input type="checkbox" onChange={() =>
                   handleNotCompleted(task)} checked />
-              {task.text}
-            </label>
+                {task.text}
+              </label>
             </div>
-          )
+          );
         })}
       </div>
     </div>
