@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Tasks from "./components/Tasks";
 import CompletedTasks from "./components/CompletedTasks";
+import AddTask from "./components/AddTask";
 
-function App() {
+const App = () => {
   const [tasks, setTasks] = useState([]);
   const [completed, setCompleted] = useState([]);
   const [task, setTask] = useState("");
@@ -38,17 +39,11 @@ function App() {
     <div>
       <h1>ToDo</h1>
 
-      <form onSubmit={addTask}>
-        <input
-          value={task}
-          name="task"
-          id="task-input"
-          onChange={({ target }) => {
-            setTask(target.value);
-          }}
-        />
-        <button type="submit">Add</button>
-      </form>
+      <AddTask
+        handleSubmit={addTask}
+        task={task}
+        setTask={setTask}
+      />
 
       <Tasks
         tasks={tasks}
@@ -61,6 +56,6 @@ function App() {
 
     </div>
   );
-}
+};
 
 export default App;
