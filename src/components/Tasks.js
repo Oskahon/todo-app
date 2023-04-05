@@ -1,4 +1,4 @@
-const Tasks = ({ tasks, handleChange }) => {
+const Tasks = ({ tasks, handleChange, handleRemove }) => {
   return (
     <div>
       <h2>Tasks</h2>
@@ -13,6 +13,12 @@ const Tasks = ({ tasks, handleChange }) => {
                 />
                 {task.text}
               </label>
+              <button
+                onClick={() =>
+                  handleRemove(task)}
+              >
+                x
+              </button>
             </div>
           );
         })}

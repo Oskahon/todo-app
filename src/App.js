@@ -35,6 +35,16 @@ const App = () => {
     setCompleted(tempCompleted);
   }
 
+  function handleRemoveCompleted(task) {
+    const tempCompleted = completed.filter(x => x.id !== task.id);
+    setCompleted(tempCompleted);
+  }
+
+  function handleRemoveNotCompleted(task) {
+    const tempTasks = tasks.filter(x => x.id !== task.id);
+    setTasks(tempTasks);
+  }
+
   return (
     <div>
       <h1>ToDo</h1>
@@ -48,10 +58,12 @@ const App = () => {
       <Tasks
         tasks={tasks}
         handleChange={handleComplete}
+        handleRemove={handleRemoveNotCompleted}
       />
       <CompletedTasks
         completed={completed}
         handleChange={handleNotCompleted}
+        handleRemove={handleRemoveCompleted}
       />
 
     </div>
