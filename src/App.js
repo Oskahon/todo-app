@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Tasks from "./components/Tasks";
+import CompletedTasks from "./components/CompletedTasks";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -48,35 +50,15 @@ function App() {
         <button type="submit">Add</button>
       </form>
 
-      <h2>Tasks</h2>
-      <div>
-        {tasks.map((task) => {
-          return (
-            <div key={task.id}>
-              <label>
-                <input type="checkbox" onChange={() =>
-                  handleComplete(task)} />
-                {task.text}
-              </label>
-            </div>
-          );
-        })}
-      </div>
+      <Tasks
+        tasks={tasks}
+        handleChange={handleComplete}
+      />
+      <CompletedTasks
+        completed={completed}
+        handleChange={handleNotCompleted}
+      />
 
-      <h2>Done</h2>
-      <div>
-        {completed.map((task) => {
-          return (
-            <div key={task.id}>
-              <label>
-                <input type="checkbox" onChange={() =>
-                  handleNotCompleted(task)} checked />
-                {task.text}
-              </label>
-            </div>
-          );
-        })}
-      </div>
     </div>
   );
 }
